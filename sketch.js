@@ -14,10 +14,10 @@ var block17,block18,block19,block20,block21,block22,block23,block24,block25;
 
 var stand1,stand2;
 
-var polygon,polygonImg;
+var polygon,polygon_img;
 
 function preload(){
-    polygonImg=loadImage("polygon.png");
+    polygon_img=loadImage("polygon.png");
 }
 
 function setup(){
@@ -25,7 +25,6 @@ function setup(){
     engine = Engine.create();
     world = engine.world;
     
-
     stand1= new Ground(450,320,250,10);
 
     stand2=new Ground(770,200,200,10);
@@ -91,20 +90,23 @@ function setup(){
     polygon= Bodies.circle(50,200,20);
     World.add(world,polygon);
 
-    slingShot= new SlingShot(this.polygon,{x:100,y:200});
+    slingshot= new SlingShot(this.polygon,{x:100,y:200});
 
-    imageMode(CENTER);
-    image(polygonImg,polygon.position.x,polygon.position.y,40,40);
+    
 
 }
 
 function draw(){
     background(44, 34, 34);
     Engine.update(engine);
-    rectMode(CENTER);
+
+    imageMode(CENTER);
+    image(polygon_img,polygon.position.x,polygon.position.y,40,40);
 
     stand1.display();
     stand2.display();
+
+    fill("red");
     block1.display();
     block2.display();
     block3.display();
@@ -112,34 +114,46 @@ function draw(){
     block5.display();
     block6.display();
     block7.display();
+
+    fill("lightblue");
     block8.display();
     block9.display();
     block10.display();
     block11.display();
     block12.display();
+
+    fill("lightgreen");
     block13.display();
     block14.display();
     block15.display();
+
+    fill("cyan");
     block16.display();
+
+    fill("cyan");
     block17.display();
     block18.display();
     block19.display();
     block20.display();
     block21.display();
+
+    fill("lightgreen");
     block22.display();
     block23.display();
     block24.display();
-    block25.display();
-    slingShot.display();
 
+    fill("red");
+    block25.display();
+    
+    slingshot.display();
     
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(polygon.body, {x: mouseX , y: mouseY});
+    Matter.Body.setPosition(polygon, {x: mouseX , y: mouseY});
 }
 
 
 function mouseReleased(){
-    sling.fly();
+    slingshot.fly();
 }
