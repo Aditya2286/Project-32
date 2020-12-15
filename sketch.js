@@ -16,6 +16,8 @@ var stand1,stand2;
 
 var polygon,polygon_img;
 
+var ground;
+
 function preload(){
     polygon_img=loadImage("polygon.png");
 }
@@ -24,73 +26,75 @@ function setup(){
     var canvas = createCanvas(950,350);
     engine = Engine.create();
     world = engine.world;
+
+    ground= new Ground(width/2,height-20,width,10);
     
-    stand1= new Ground(450,320,250,10);
+    stand1= new Ground(450,300,250,10);
 
     stand2=new Ground(770,200,200,10);
 
     //bottomStage of stand1
-    block1= new Box(360,270,30,40);
+    block1= new Box(360,280,30,40);
 
-    block2= new Box(390,270,30,40);
+    block2= new Box(390,280,30,40);
 
-    block3= new Box(420,270,30,40);
+    block3= new Box(420,280,30,40);
 
-    block4= new Box(450,270,30,40);
+    block4= new Box(450,280,30,40);
 
-    block5= new Box(480,270,30,40);
+    block5= new Box(480,280,30,40);
 
-    block6= new Box(510,270,30,40);
+    block6= new Box(510,280,30,40);
 
-    block7= new Box(540,270,30,40);
+    block7= new Box(540,280,30,40);
 
     //second bottomStage of stand1
-    block8= new Box(390,230,30,40);
+    block8= new Box(390,240,30,40);
 
-    block9= new Box(420,230,30,40);
+    block9= new Box(420,240,30,40);
 
-    block10= new Box(450,230,30,40);
+    block10= new Box(450,240,30,40);
 
-    block11= new Box(480,230,30,40);
+    block11= new Box(480,240,30,40);
 
-    block12= new Box(510,230,30,40);
+    block12= new Box(510,240,30,40);
 
     //secondStage of stand1
-    block13= new Box(420,190,30,40);
+    block13= new Box(420,200,30,40);
 
-    block14= new Box(450,190,30,40);
+    block14= new Box(450,200,30,40);
 
-    block15= new Box(480,190,30,40);
+    block15= new Box(480,200,30,40);
 
     //topStage of stand1
-    block16= new Box(450,150,30,40);
+    block16= new Box(450,160,30,40);
 
     //bottomStage of stand2
-    block17= new Box(710,150,30,40);
+    block17= new Box(710,170,30,40);
 
-    block18= new Box(740,150,30,40);
+    block18= new Box(740,170,30,40);
 
-    block19= new Box(770,150,30,40);
+    block19= new Box(770,170,30,40);
 
-    block20= new Box(800,150,30,40);
+    block20= new Box(800,170,30,40);
 
-    block21= new Box(830,150,30,40);
+    block21= new Box(830,170,30,40);
 
     //secondStage of stand2
-    block22= new Box(740,110,30,40);
+    block22= new Box(740,130,30,40);
 
-    block23= new Box(770,110,30,40);
+    block23= new Box(770,130,30,40);
 
-    block24= new Box(800,110,30,40);
+    block24= new Box(800,130,30,40);
 
     //topStage of stand2
-    block25= new Box(770,70,30,40);
+    block25= new Box(770,90,30,40);
 
     //Creating the polygon and sling
-    polygon= Bodies.circle(50,200,20);
+    polygon= Bodies.circle(100,200,20);
     World.add(world,polygon);
 
-    slingshot= new SlingShot(this.polygon,{x:100,y:200});
+    slingshot= new SlingShot(this.polygon,{x:150,y:200});
 
     
 
@@ -103,6 +107,8 @@ function draw(){
     imageMode(CENTER);
     image(polygon_img,polygon.position.x,polygon.position.y,40,40);
 
+    ground.display();
+    
     stand1.display();
     stand2.display();
 
@@ -156,4 +162,10 @@ function mouseDragged(){
 
 function mouseReleased(){
     slingshot.fly();
+}
+
+function keyPressed(){
+    if(keyCode===32){
+        slingshot.attach(polygon);
+    }
 }
