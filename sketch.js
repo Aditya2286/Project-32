@@ -18,8 +18,14 @@ var polygon,polygon_img;
 
 var ground;
 
+var score = 0;
+
+var bGround;
+var bg = "#BBEFF7"
 function preload(){
     polygon_img=loadImage("polygon.png");
+
+    getTime();
 }
 
 function setup(){
@@ -96,13 +102,31 @@ function setup(){
 
     slingshot= new SlingShot(this.polygon,{x:150,y:200});
 
-    
-
 }
 
 function draw(){
-    background(44, 34, 34);
+    if(bGround){
+        background(bg);
+    }
+
+    else{
+        background("cyan");
+    }
+
     Engine.update(engine);
+
+    
+    textSize(20);
+    fill("cyan");
+    stroke("red");
+    strokeWeight(5);
+    text("Score : "+score,450,100);
+
+    textSize(15);
+    fill("#DBD5C9");
+    stroke("#FF6603");
+    strokeWeight(5);
+    text("Press Space Key for Moving back the Polygon to Its Normal Position",250,50);
 
     imageMode(CENTER);
     image(polygon_img,polygon.position.x,polygon.position.y,40,40);
@@ -152,6 +176,45 @@ function draw(){
     block25.display();
     
     slingshot.display();
+
+    //scoring of bottomStand of stage1
+    block1.score();
+    block2.score();
+    block3.score();
+    block4.score();
+    block5.score();
+    block6.score();
+    block7.score();
+
+    //scoring of second bottomStage of stand1
+    block8.score();
+    block9.score();
+    block10.score();
+    block11.score();
+    block12.score();
+
+    //scoring of second Stage of stand1
+    block13.score();
+    block14.score();
+    block15.score();
+
+    //scoring of topStage of stand1
+    block16.score();
+
+    //scoring of bottomStage of stand2
+    block17.score();
+    block18.score();
+    block19.score();
+    block20.score();
+    block21.score();
+
+    //scoring of secondStage of stand2
+    block22.score();
+    block23.score();
+    block24.score();
+
+    //scoring of topStage of stand2
+    block25.score();
     
 }
 
@@ -168,4 +231,22 @@ function keyPressed(){
     if(keyCode===32){
         slingshot.attach(polygon);
     }
+}
+
+async function getTime(){
+    var response = await fetch("http://worldclockapi.com/api/json/est/now");
+    var responseJSON = await response.json();
+    var dateTime = responseJSON.currentDateTime;
+    var hour = dateTime.slice(11,13);
+    console.log(hour);
+
+    if(hour>=06&&hour<=18){
+        bg="#382C2C";
+    }
+    else {
+        bg="#BBEFF7";
+    }
+
+    bGround = loadImage(bg);
+    console.log(bGround);
 }
